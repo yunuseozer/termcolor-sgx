@@ -11,11 +11,18 @@ repository = "https://github.com/BurntSushi/termcolor"
 readme = "README.md"
 keywords = ["windows", "win", "color", "ansi", "console"]
 license = "Unlicense OR MIT"
-exclude = ["/.travis.yml", "/appveyor.yml", "/ci/**"]
+exclude = ["/.travis.yml", "/appveyor.yml", "/ci/**", "/sgx/*"]
 
 [lib]
 name = "termcolor"
 bench = false
 
+[features]
+default = ["mesalock_sgx"]
+mesalock_sgx = ["sgx_tstd"]
+
 [target.'cfg(windows)'.dependencies]
-wincolor = { version = "1", path = "wincolor" }
+#wincolor = { version = "1", path = "wincolor" }
+
+[dependencies]
+sgx_tstd = { rev = "v1.1.0", git = "https://github.com/apache/teaclave-sgx-sdk.git", optional = true }
